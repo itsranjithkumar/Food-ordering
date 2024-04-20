@@ -1,6 +1,8 @@
 
 import CustomHeader from '../Components/CustomHeader';
 import { Stack } from 'expo-router';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import Colors from '../constants/Colors';
 
 
 export const unstable_settings = {
@@ -12,10 +14,28 @@ export const unstable_settings = {
 export default function RootLayoutNav() {
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{
+    <BottomSheetModalProvider>
+      <Stack>
+      <Stack.Screen 
+      name="index" 
+       options={{
         header:() => <CustomHeader/>,
-      }} />
+      }} 
+      />
+      <Stack.Screen 
+      name="(modal)/filter" 
+      options={{
+        presentation: 'modal',
+        headerTitle: 'Filter',
+        headerShadowVisible: false,
+        headerStyle: {
+          backgroundColor: Colors.lightGrey,
+        },
+      }}
+      
+      />
     </Stack>
+    </BottomSheetModalProvider>
+  
   );
 }
