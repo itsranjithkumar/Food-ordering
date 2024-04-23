@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ListRenderItem } from 'react-native'
+import { View, Text, StyleSheet, ListRenderItem, Button } from 'react-native'
 import React, { useState } from 'react'
 import Colors from '@/constants/Colors';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
@@ -51,6 +51,15 @@ const filter = () => {
   const navigation = useNavigation();
   const [items, setItems] = useState<Category[]>(categories);
 
+  const handleClearAll = () => {
+    const updatedItems = items.map((item) => {
+      item.checked = false;
+      return item;
+    });
+    setItems(updatedItems);
+
+  };
+
   const renderItem: ListRenderItem<Category> = ({ item, index }) => (
     <View style={styles.row}>
         <Text style={styles.itemText}>
@@ -81,7 +90,10 @@ setItems(updatedItems);
 
   return (
     <View style = {styles.container}>
+       <Button title="Clear All" onPress={handleClearAll}/>
+        
       <FlatList data={items}
+      
       renderItem = {renderItem} ListHeaderComponent ={ItemBox}/>
       <View style={{height:76}}/>
       <View style={styles.footer}>
