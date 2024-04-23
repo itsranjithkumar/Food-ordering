@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
      backgroundColor: Colors.primary,
      padding: 8,
      borderRadius:32,
-     padddingHorizontal:30,
+     paddingHorizontal:30,
   },
   activeText:{
     color: '#fff',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   toggleInactive:{
     padding: 8,
     borderRadius:32,
-    padddingHorizontal:30,
+    paddingHorizontal:30,
   },
   inactiveText:{
     color: Colors.primary,
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     gap: 8,
-    alignItems: 'Center',
+    alignItems: 'center',
     backgroundColor: '#fff',
     padding:16,
     borderColor:Colors.grey,
     borderWidth:1,
-  }
+  },
 });
 
 export default BottomSheet
