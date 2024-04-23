@@ -6,7 +6,7 @@ import { useNavigation} from 'expo-router';
 import categories from '@/assets/data/filter.json';
 import { Ionicons } from '@expo/vector-icons';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 
 interface Category {
@@ -53,6 +53,8 @@ const filter = () => {
   const [items, setItems] = useState<Category[]>(categories);
   const [selected, setSelected] = useState<Category[]>([]);
   const flexWidth = useSharedValue(0);
+  const Scale = useSharedValue(0);
+
 
   useEffect(()=>{
     const hasSelected = selected.length > 0;
@@ -60,8 +62,11 @@ const filter = () => {
     const newSelected = selectedItems.length > 0
 
     if (hasSelected !== newSelected) {
-        console.log ('HAS CHANGED');   
+        flexWidth.value = withTiming (newSelected ? 150 : 0); 
+        Scale.value = withTiming (newSelected ? 1 : 0); 
+
        }
+       setSelected(selectedItems);
   }, [items]);
 
   const handleClearAll = () => {
@@ -73,10 +78,18 @@ const filter = () => {
 
   };
 
-  const animtedStyles = useAnimatedStyle(() => {
+  const animatedStyles = useAnimatedStyle(() => {
     return {
       flex: flexWidth.value,
+      opacity: flexWidth.value > 0 ? 1 : 0,
     };
+  });
+
+
+  const animatedText = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: Scale.value }],   
+     };
   });
 
   const renderItem: ListRenderItem<Category> = ({ item, index }) => (
@@ -118,10 +131,11 @@ setItems(updatedItems);
         <View style={styles.btnContainer}>
 
         
-
-      <TouchableOpacity style={styles.outlineButtonText} onPress={handleClearAll}>
-         <Text style={styles.outlineButtonText}>Clear All</Text>
+       <Animated.View style={[ animatedStyles, styles.outlineButton]}>
+      <TouchableOpacity onPress={handleClearAll}>
+         <Animated.Text style={[animatedText,styles.outlineButtonText]}>Clear All</Animated.Text>
          </TouchableOpacity>
+         </Animated.View>
 
         <TouchableOpacity style={styles.fullButton} onPress={() => navigation.goBack()}>
          <Text style={styles.footerText}>Done</Text>
@@ -160,6 +174,8 @@ const styles = StyleSheet.create({
       padding:16,
       alignItems: 'center',
       borderRadius: 8,
+      flex:1,
+      height:56,
     },
     footerText: {
       color: '#fff',
@@ -211,6 +227,7 @@ const styles = StyleSheet.create({
        alignItems: 'center',
        justifyContent: 'center',
        borderRadius: 8,
+       height: 56, 
     },
     outlineButtonText: {
       color: Colors.primary,
