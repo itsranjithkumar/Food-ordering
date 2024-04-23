@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ListRenderItem } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Colors from '@/constants/Colors';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation} from 'expo-router';
@@ -49,26 +49,41 @@ const ItemBox = () =>
 
 const filter = () => {
   const navigation = useNavigation();
+  const [items, setItems] = useState<Category[]>(categories);
 
-  const renderItem: ListRenderItem<Category> = ({ item }) => (
+  const renderItem: ListRenderItem<Category> = ({ item, index }) => (
        <View style={styles.row}>
         <Text style={styles.itemText}>
           {item.name} ({item.count})
         </Text>
         <BouncyCheckbox
+        isChecked={items[index].cheaked}
           fillColor={Colors.primary}
           unFillColor="#fff"
+          disableBuiltInState
           iconStyle={{borderColor: Colors.primary,borderRadius:4 , borderWidth:2}}
           innerIconStyle={{borderColor: Colors.primary,borderRadius:4}}
-          onPress={() =>{}}
-          isChecked={item.cheaked}/>
+          onPress={() =>{
+             const isChecked = items[index].cheaked;
+
+             const updatedItems = items.map((item) => {
+             if (item.name === items[index].name) {
+               item.checked = !isChecked;
+             }
+
+             return items;
+            });
+
+            setItems(updatedItems);
+          }}
+          />
        </View>
 
       );
 
   return (
     <View style = {styles.container}>
-      <FlatList data={categories}
+      <FlatList data={items}
       renderItem = {renderItem} ListHeaderComponent ={ItemBox}/>
       <View style={{height:76}}/>
       <View style={styles.footer}>
