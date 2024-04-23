@@ -45,7 +45,7 @@ export default function RootLayoutNav() {
         <Stack.Screen
           name="(modal)/location-search"
           options={{
-            presentation: 'fullScreenModel',
+            presentation: 'fullScreenModal',
             headerTitle: 'Search location',
             headerStyle: {
               backgroundColor: Colors.lightGrey,

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView,StyleSheet,TouchableOpacity,Image} from 'react-native'
+import { View, Text,StyleSheet,TouchableOpacity,Image} from 'react-native'
 import React, { useRef } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
@@ -6,6 +6,7 @@ import { Link } from 'expo-router';
 import { TextInput } from 'react-native-gesture-handler';
 import BottomSheet from './BottomSheet';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
