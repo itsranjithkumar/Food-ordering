@@ -11,10 +11,10 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 interface Category {
   name: string;
   count: number;
-  cheaked?: boolean;
+  checked?: boolean;
 }
 
-const ItemBox = () =>
+const ItemBox = () => (
   <>
   <View style={styles.itemContainer}>
     <TouchableOpacity style={styles.item}>
@@ -43,7 +43,7 @@ const ItemBox = () =>
   </View>
       <Text style={styles.header}>Categories</Text>
   </>
-
+)
     
 
 
@@ -57,14 +57,14 @@ const filter = () => {
           {item.name} ({item.count})
         </Text>
         <BouncyCheckbox
-        isChecked={items[index].cheaked}
+        isChecked={items[index].checked}
           fillColor={Colors.primary}
           unFillColor="#fff"
           disableBuiltInState
           iconStyle={{borderColor: Colors.primary,borderRadius:4 , borderWidth:2}}
           innerIconStyle={{borderColor: Colors.primary,borderRadius:4}}
           onPress={() =>{
-             const isChecked = items[index].cheaked;
+             const isChecked = items[index].checked;
 
              const updatedItems = items.map((item) => {
              if (item.name === items[index].name) {
