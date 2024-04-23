@@ -14,7 +14,7 @@ export const unstable_settings = {
 
 
 export default function RootLayoutNav() {
-  const navigation = useNavigation
+  const navigation = useNavigation()
   return (
     <BottomSheetModalProvider>
       <Stack>
@@ -34,11 +34,9 @@ export default function RootLayoutNav() {
           backgroundColor: Colors.lightGrey,
         },
         headerLeft: () => (
-          <TouchableOpacity onPress={() => {navigation.goBack();
-
-          }}>
-            <Ionicons name="close-outline" size={28} color={Colors.primary}/>
-          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {navigation.goBack()}}>
+          <Ionicons name="close-outline" size={28} color={Colors.primary} />
+        </TouchableOpacity>
         )
       }}
       

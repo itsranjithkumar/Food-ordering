@@ -52,34 +52,32 @@ const filter = () => {
   const [items, setItems] = useState<Category[]>(categories);
 
   const renderItem: ListRenderItem<Category> = ({ item, index }) => (
-       <View style={styles.row}>
+    <View style={styles.row}>
         <Text style={styles.itemText}>
           {item.name} ({item.count})
         </Text>
-        <BouncyCheckbox
-        isChecked={items[index].checked}
-          fillColor={Colors.primary}
-          unFillColor="#fff"
-          disableBuiltInState
-          iconStyle={{borderColor: Colors.primary,borderRadius:4 , borderWidth:2}}
-          innerIconStyle={{borderColor: Colors.primary,borderRadius:4}}
-          onPress={() =>{
-             const isChecked = items[index].checked;
+            <BouncyCheckbox
+            isChecked={items[index].checked} 
+fillColor={Colors.primary}
+unfillColor="#fff"
+iconStyle={{ borderColor: Colors.primary, borderRadius: 4, borderWidth: 2 }}
+disableBuiltInState={false} // Should be either true or false
+innerIconStyle={{ borderColor: Colors.primary }}
+onPress={() => {
+const isChecked=items[index].checked;
+const updatedItems=items.map((item)=>{
+    if (item.name===items[index].name){
+        item.checked=!isChecked;
+    }
+    return item;
+});
 
-             const updatedItems = items.map((item) => {
-             if (item.name === items[index].name) {
-               item.checked = !isChecked;
-             }
-
-             return items;
-            });
-
-            setItems(updatedItems);
+setItems(updatedItems);
           }}
-          />
-       </View>
+/>
+    </View>
 
-      );
+);
 
   return (
     <View style = {styles.container}>
