@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
 import Categories from '@/Components/Categories';
@@ -8,9 +8,9 @@ import Colors from '@/constants/Colors';
 
 const page = () => {
   return (
-    <View>
+    
       <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom:40}}>
         <Categories/>
         <Text style ={styles.header}>
           Top picks in your neighbourhood
@@ -22,7 +22,7 @@ const page = () => {
         <Restaurants/>
       </ScrollView>
       </SafeAreaView>
-    </View>
+  
   );
 };
 
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginTop: 16,
+    marginBottom: 8,
     paddingHorizontal: 16,
   },
 })

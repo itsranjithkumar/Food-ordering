@@ -2,6 +2,8 @@ import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { restaurants} from '@/assets/data/home';
 import { Link } from 'expo-router';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Colors from '@/constants/Colors';
 
 const Restaurants = () => {
   return (
@@ -9,12 +11,19 @@ const Restaurants = () => {
     contentContainerStyle={{
       padding:15,
     }}>
-      {restaurants.map((Restaurants
+      {restaurants.map((restaurant
       , index) => (
         <Link href={'/'} key={index} asChild>
-          <View style={styles.categoryCard} key={index}>
-       
+            <TouchableOpacity>
+          <View style={styles.categoryCard}>
+            <Image source={restaurant.img} style={styles.image}/>
+            <View style={styles.categoryBox}>
+                <Text style={styles.categoryText}>{restaurant.name}</Text>
+                <Text style={{color: Colors.green}}>{restaurant.rating} {restaurant.ratings}</Text>
+                <Text style={{color: Colors.medium}}>{restaurant.distance}</Text>
+            </View>
         </View>
+          </TouchableOpacity>
         </Link>
       ))}
     </ScrollView>  
@@ -23,8 +32,8 @@ const Restaurants = () => {
 
 const styles = StyleSheet.create({
   categoryCard: {
-    width: 100,
-    height: 100,
+    width: 300,
+    height: 250,
     backgroundColor: '#fff',
     marginEnd: 10,
     elevation:2,
@@ -38,9 +47,22 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     padding: 5,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
-  }
+  },
+  image:{
+    flex:5,
+    width: undefined,
+    height: undefined
+  },
+  
+  imageCointainer: {
+
+  },
+  categoryBox:{
+    flex:2,
+    padding:10,
+  },
 });
 
 export default Restaurants;
