@@ -9,7 +9,8 @@ const Restaurants = () => {
     contentContainerStyle={{
       padding:15,
     }}>
-      {restaurants.map((category, index) => (
+      {restaurants.map((Restaurants
+      , index) => (
         <Link href={'/'} key={index} asChild>
           <View style={styles.categoryCard} key={index}>
        
@@ -42,4 +43,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default restaurants
+export default Restaurants;
