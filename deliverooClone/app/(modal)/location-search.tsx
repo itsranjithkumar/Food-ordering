@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import MapView from 'react-native-maps';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '@/constants/Colors';
+import { useNavigation } from 'expo-router';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import { Ionicons } from '@expo/vector-icons';
 
 
-// process.env.EXPO_PUBLIC_GOOGLE_API_KEY
+
 
 const LocationSearch = () => {
+    const navigation = useNavigation();
     const [location, setLocation] = useState({
         latitude:51.5078788,
         longitude:-0.0877321,
@@ -16,10 +20,53 @@ const LocationSearch = () => {
     });
   return (
     <View style={{flex:1}}>
+
+<GooglePlacesAutocomplete
+        placeholder="Search or move the map"
+        fetchDetails={true}
+        onPress={(data, details) => {
+            const point = details?.geometry?.location
+            if (!point) return;
+            setLocation({
+                ...location,
+                latitude: point.lat,
+                longitude: point.lng,
+            });
+           
+        }}
+          query={{
+              key:process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
+              language:'en',
+          }}
+          renderLeftButton={() =>
+            <View style={styles.boxIcon}> 
+           <Ionicons name="search-outline" size={24} color={ Colors.medium}/>
+           </View>
+          }
+          styles={{
+              container: {
+                  flex: 0,
+              },
+              textInput: {
+                  backgroundColor: Colors.grey,
+                  paddingLeft:35,
+                  borderRadius: 10,
+
+              },
+              textInputContainer: {
+                padding: 8,
+                  backgroundColor: '#fff',
+              },
+              
+          }}
+          />
+           
+          
+
         <MapView showsUserLocation={true} style={styles.map} region={location}/>
 
         <View style ={styles.absoluteBox}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=> navigation.goBack()}>
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
 
@@ -49,6 +96,12 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 16,
+    },
+    boxIcon:{
+       position: 'absolute',
+       left: 15,
+       top: 10,
+       zIndex: 1,
     },
     });
 
