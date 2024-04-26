@@ -75,7 +75,7 @@ const Details = () => {
 
       selected.measure((x) => {
       scrollRef.current?.scrollTo({x: x -16, y: 0,animated:true});
-      });
+      }); 
 
     };
     
@@ -92,7 +92,7 @@ const Details = () => {
     }; 
 
   const renderItem: ListRenderItem<any> = ({ item, index }) => (
-    <Link href={'/'} asChild>
+    <Link href={{pathname:'/(modal)/dish', params: {id: item.id}}} asChild>
       <TouchableOpacity style={styles.item}>
         <View style={{ flex: 1 }}>
 

@@ -29,7 +29,7 @@ export default function RootLayoutNav() {
           options={{
             presentation: 'modal',
             headerTitle: 'Filter',
-            headerShadowVisible: false,
+            headerShadowVisible: false, 
             headerStyle: {
               backgroundColor: Colors.lightGrey,
             },
@@ -50,6 +50,23 @@ export default function RootLayoutNav() {
             headerStyle: {
               backgroundColor: Colors.lightGrey,
             },
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                <Ionicons name="close-outline" size={28} color={Colors.primary} />
+              </TouchableOpacity>
+            )
+          }}
+
+        />
+
+<Stack.Screen
+          name="(modal)/dish"
+          options={{
+            presentation: 'modal',
+            headerTitle: '',
+            headerTransparent:true,
+            headerShadowVisible: false, 
+           
             headerLeft: () => (
               <TouchableOpacity onPress={() => { navigation.goBack() }}>
                 <Ionicons name="close-outline" size={28} color={Colors.primary} />
