@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import page from '..';
+import useBasketStore from '@/Components/basketStore';
 
 
 
@@ -34,6 +35,8 @@ const Details = () => {
 
 
   }));
+
+  const { items, total} = useBasketStore();
 
 
 
@@ -149,6 +152,8 @@ const Details = () => {
         </View>
       </ParallaxScrollView>
 
+
+{/* sticky segments */}
       <Animated.View style={[styles.stickySegments, animatedStyles]}>
         <View style={styles.segmentsShadow}>
           <ScrollView 
@@ -166,6 +171,18 @@ const Details = () => {
               </ScrollView>
       </View>
       </Animated.View >
+
+      {/*Footer Basket */}
+      {items > 0 && (
+        <View style={styles.footer}>
+          <View style={Styles.footerContainer}>
+          <Text style={{fontSize:16, fontWeight:'bold'}}>Total:${total}</Text>
+        </View>
+        </View>
+          
+  
+          
+      )}
       </>
     );
   };
@@ -302,6 +319,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap:20,
     paddingBottom:4,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    padding: 10,
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: -10,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    paddingTop: 20,
+  },
+  footerCointainer:{
+    flexDirection: 'row',
+    justifyCointainer: 'center',
+    gap:12
   },
   
 });
