@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, SectionList, ListRenderItem } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import ParallaxScrollView from '@/Components/ParallaxScrollView';
 import Colors from '@/constants/Colors';
 import { restaurant } from '@/assets/data/restaurant'
@@ -7,7 +7,8 @@ import { Link, useNavigation } from 'expo-router';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
-import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import page from '..';
 
 
 
@@ -22,6 +23,9 @@ const Details = () => {
      opacity: opacity.value,
   }));
 
+  const scrollRef = useRef<ScrollView>(null);
+  const itemRef = useRef<TouchableOpacity[]>([]);
+
   const DATA = restaurant.food.map((item, index) => ({
     title: item.category,
     data: item.meals,
@@ -30,6 +34,8 @@ const Details = () => {
 
 
   }));
+
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -63,17 +69,24 @@ const Details = () => {
   }, []);
 
     const selectCategory = (index: number) => {
+      const selected = itemRef.current[index];
       setActiveIndex(index);
+
+
+      selected.measure((x) => {
+      scrollRef.current?.scrollTo({x: x -16, y: 0,animated:true});
+      });
+
     };
     
 
 
     const onScroll = (event: any) => {
-      const y = event.nativeEvent.constentoffset.y;
+      const y = event.nativeEvent.contentOffset.y;
       if (y > 350) {
-        opacity.value = 1;
+        opacity.value = withTiming(1);
       } else {
-        opacity.value = 0;
+        opacity.value = withTiming(0);
       }
         
     }; 
@@ -99,7 +112,8 @@ const Details = () => {
   return (
     <>
       <ParallaxScrollView 
-        onScroll={onScroll}
+      scrollEvent={onScroll}
+
         backgroundColor={'#fff'}
         style={{ flex: 1 }}
         parallaxHeaderHeight={250}
@@ -137,10 +151,14 @@ const Details = () => {
 
       <Animated.View style={[styles.stickySegments, animatedStyles]}>
         <View style={styles.segmentsShadow}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}
+          <ScrollView 
+          ref={scrollRef}
+          horizontal showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.segmentScrollview}>
             {restaurant.food.map((item, index) => (
-              <TouchableOpacity key={index} style={activeIndex === index ? styles.segmentButtonActive :styles.segmentButton} onPress={() => selectCategory(index)}>
+              <TouchableOpacity 
+              ref={(ref) => (itemRef.current[index]= ref!)}
+              key={index} style={activeIndex === index ? styles.segmentButtonActive :styles.segmentButton} onPress={() => selectCategory(index)}>
                 <Text style={activeIndex === index ? styles.segmentTextActive :styles.segmentText}>{item.category}</Text>
 
               </TouchableOpacity>
