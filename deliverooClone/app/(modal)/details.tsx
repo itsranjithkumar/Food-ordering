@@ -180,7 +180,7 @@ const Details = () => {
 
           <Link href="/basket" asChild>
             <TouchableOpacity style={styles.fullButton}>
-          <Text style={styles.basket}></Text>
+          <Text style={styles.basket}>{items}</Text>
 
           <Text>items</Text>
           <Text style={styles.footerText}>View Basket</Text>
