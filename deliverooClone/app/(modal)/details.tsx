@@ -10,6 +10,7 @@ import { ScreenStackHeaderRightView } from 'react-native-screens';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import page from '..';
 import useBasketStore from '@/Components/basketStore';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -175,8 +176,9 @@ const Details = () => {
       {/*Footer Basket */}
       {items > 0 && (
         <View style={styles.footer}>
-        <View style={styles.footerCointainer}>
-          <Link href="/" asChild>
+                  <SafeAreaView edges={['bottom']} style={{backgroundColor: '#fff'}}>
+
+          <Link href="/basket" asChild>
             <TouchableOpacity style={styles.fullButton}>
           <Text style={styles.basket}></Text>
 
@@ -186,7 +188,8 @@ const Details = () => {
           <Text style={styles.basketTotal}>${total}</Text>
           </TouchableOpacity>
           </Link>
-        </View>
+        </SafeAreaView>
+
         </View>
           
   
@@ -345,19 +348,17 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     paddingTop: 20,
   },
-  footerCointainer:{
-    flexDirection: 'row',
-    justifyCointainer: 'center',
-    gap:12
-  }, 
+  
+  
   fullButton: {
     backgroundColor: Colors.primary,
-    padding: 16,
+    paddingHorizontal: 16,
     borderRadius: 8,
     alignItems: 'center',
     flexDirection: 'row',
     flex:1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: 50,
 },
   footerText:{
     color: '#fff',
@@ -366,9 +367,17 @@ const styles = StyleSheet.create({
     
   },
   basket: {
+    color: '#fff',
+    backgroundColor: '#19AA86',
+    fontWeight: 'bold',
+    padding: 8,
+    borderRadius: 2,
 
   },
   basketTotal:{
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
 
   },
   
