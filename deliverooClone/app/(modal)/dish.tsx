@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeInDown, FadeInLeft } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics'
-import useBasketStore from '@/Components/basketStore';
+import useBasketStore from '@/store/basketStore';
 
 const dish = () => {
     const { id } = useLocalSearchParams();

@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ScreenStackHeaderRightView } from 'react-native-screens';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import page from '..';
-import useBasketStore from '@/Components/basketStore';
+import useBasketStore from '@/store/basketStore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
