@@ -175,8 +175,17 @@ const Details = () => {
       {/*Footer Basket */}
       {items > 0 && (
         <View style={styles.footer}>
-          <View style={Styles.footerContainer}>
-          <Text style={{fontSize:16, fontWeight:'bold'}}>Total:${total}</Text>
+        <View style={styles.footerCointainer}>
+          <Link href="/" asChild>
+            <TouchableOpacity style={styles.fullButton}>
+          <Text style={styles.basket}></Text>
+
+          <Text>items</Text>
+          <Text style={styles.footerText}>View Basket</Text>
+
+          <Text style={styles.basketTotal}>${total}</Text>
+          </TouchableOpacity>
+          </Link>
         </View>
         </View>
           
@@ -340,6 +349,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyCointainer: 'center',
     gap:12
+  }, 
+  fullButton: {
+    backgroundColor: Colors.primary,
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex:1,
+    justifyContent: 'space-between'
+},
+  footerText:{
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+    
+  },
+  basket: {
+
+  },
+  basketTotal:{
+
   },
   
 });
